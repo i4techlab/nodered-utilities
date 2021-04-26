@@ -2,15 +2,15 @@
     {
         "id": "ef1775f9.a8d7f8",
         "type": "tab",
-        "label": "File Intervals (LocalData)",
-        "disabled": false,
+        "label": "FileInt/LocalData",
+        "disabled": true,
         "info": ""
     },
     {
         "id": "dd8677e1.8dcde8",
         "type": "tab",
-        "label": "File Intervals (Delay)",
-        "disabled": false,
+        "label": "FileInt/Delay",
+        "disabled": true,
         "info": ""
     },
     {
