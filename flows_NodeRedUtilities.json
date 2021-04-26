@@ -1,1 +1,292 @@
-[{"id":"17587f1e.89d3b1","type":"tab","label":"Flow 1","disabled":true,"info":""},{"id":"ef1775f9.a8d7f8","type":"tab","label":"Flow 2","disabled":false,"info":""},{"id":"5e212842.227f88","type":"http in","z":"17587f1e.89d3b1","name":"","url":"/capture","method":"get","upload":false,"swaggerDoc":"","x":390,"y":620,"wires":[[]]},{"id":"40106e3b.8a085","type":"http response","z":"17587f1e.89d3b1","name":"","statusCode":"200","headers":{},"x":820,"y":520,"wires":[]},{"id":"df5aa1b2.9bd31","type":"debug","z":"17587f1e.89d3b1","name":"","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"false","statusVal":"","statusType":"auto","x":830,"y":680,"wires":[]},{"id":"4a371907.003378","type":"inject","z":"17587f1e.89d3b1","name":"","props":[{"p":"payload"},{"p":"topic","vt":"str"}],"repeat":"","crontab":"","once":false,"onceDelay":0.1,"topic":"","payload":"","payloadType":"date","x":410,"y":560,"wires":[["931c910a.c7e21"]]},{"id":"931c910a.c7e21","type":"usb-camera","z":"17587f1e.89d3b1","mode":"buffer","format":"png","filename":"image.jpg","width":"320","height":"240","quality":"100","brightness":"50","contrast":"50","saturation":"50","hue":"50","delay":"0","name":"","x":630,"y":620,"wires":[["df5aa1b2.9bd31"]]},{"id":"5573d0f6.b8acf","type":"inject","z":"ef1775f9.a8d7f8","name":"","props":[{"p":"payload"},{"p":"topic","vt":"str"}],"repeat":"","crontab":"","once":true,"onceDelay":"0","topic":"","payload":"","payloadType":"date","x":170,"y":180,"wires":[["974bcfa1.8d0a2"]]},{"id":"974bcfa1.8d0a2","type":"file in","z":"ef1775f9.a8d7f8","name":"","filename":"C:/Users/AngelFernandez/Desktop/prueba.csv","format":"utf8","chunk":false,"sendError":false,"encoding":"none","x":500,"y":180,"wires":[["4a9ecb10.48bf64"]]},{"id":"4a9ecb10.48bf64","type":"csv","z":"ef1775f9.a8d7f8","name":"","sep":";","hdrin":"","hdrout":"none","multi":"mult","ret":"\\n","temp":"","skip":"0","strings":true,"include_empty_strings":"","include_null_values":"","x":790,"y":180,"wires":[["da15400.2cb1ec","acdb6123.05ada"]]},{"id":"da15400.2cb1ec","type":"function","z":"ef1775f9.a8d7f8","name":"","func":"flow.set(\"datos\", msg.payload);","outputs":0,"noerr":0,"initialize":"","finalize":"","x":980,"y":180,"wires":[]},{"id":"acdb6123.05ada","type":"debug","z":"ef1775f9.a8d7f8","name":"Archivo a datos locales","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","targetType":"msg","statusVal":"","statusType":"auto","x":1030,"y":280,"wires":[]},{"id":"6bfeb1a3.a2825","type":"inject","z":"ef1775f9.a8d7f8","name":"","props":[{"p":"payload"},{"p":"topic","vt":"str"}],"repeat":"3","crontab":"","once":true,"onceDelay":"1","topic":"","payload":"","payloadType":"date","x":170,"y":480,"wires":[["a7f2ef40.f1701"]]},{"id":"a7f2ef40.f1701","type":"function","z":"ef1775f9.a8d7f8","name":"","func":"let fila = flow.get(\"fila\");\n\nmsg.payload = flow.get(\"datos[\" + fila + \"]\")\n\nflow.set(\"fila\", fila + 1)\n\nreturn msg;","outputs":1,"noerr":0,"initialize":"// Code added here will be run once\n// whenever the node is deployed.\nflow.set(\"fila\", 0);","finalize":"","x":360,"y":480,"wires":[["ff19209f.428a2"]]},{"id":"ff19209f.428a2","type":"debug","z":"ef1775f9.a8d7f8","name":"Fila cada 3 segundos","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","targetType":"msg","statusVal":"","statusType":"auto","x":1020,"y":480,"wires":[]}]
+[
+    {
+        "id": "ef1775f9.a8d7f8",
+        "type": "tab",
+        "label": "File Intervals (LocalData)",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "dd8677e1.8dcde8",
+        "type": "tab",
+        "label": "File Intervals (Delay)",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "5573d0f6.b8acf",
+        "type": "inject",
+        "z": "ef1775f9.a8d7f8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "0",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 170,
+        "y": 180,
+        "wires": [
+            [
+                "974bcfa1.8d0a2"
+            ]
+        ]
+    },
+    {
+        "id": "974bcfa1.8d0a2",
+        "type": "file in",
+        "z": "ef1775f9.a8d7f8",
+        "name": "",
+        "filename": "C:/Users/AngelFernandez/Desktop/prueba.csv",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "x": 500,
+        "y": 180,
+        "wires": [
+            [
+                "4a9ecb10.48bf64"
+            ]
+        ]
+    },
+    {
+        "id": "4a9ecb10.48bf64",
+        "type": "csv",
+        "z": "ef1775f9.a8d7f8",
+        "name": "",
+        "sep": ";",
+        "hdrin": "",
+        "hdrout": "none",
+        "multi": "mult",
+        "ret": "\\n",
+        "temp": "",
+        "skip": "0",
+        "strings": true,
+        "include_empty_strings": "",
+        "include_null_values": "",
+        "x": 790,
+        "y": 180,
+        "wires": [
+            [
+                "da15400.2cb1ec",
+                "acdb6123.05ada"
+            ]
+        ]
+    },
+    {
+        "id": "da15400.2cb1ec",
+        "type": "function",
+        "z": "ef1775f9.a8d7f8",
+        "name": "",
+        "func": "flow.set(\"datos\", msg.payload);",
+        "outputs": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 980,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "acdb6123.05ada",
+        "type": "debug",
+        "z": "ef1775f9.a8d7f8",
+        "name": "Archivo a datos locales",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1030,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "6bfeb1a3.a2825",
+        "type": "inject",
+        "z": "ef1775f9.a8d7f8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "3",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 170,
+        "y": 380,
+        "wires": [
+            [
+                "a7f2ef40.f1701"
+            ]
+        ]
+    },
+    {
+        "id": "a7f2ef40.f1701",
+        "type": "function",
+        "z": "ef1775f9.a8d7f8",
+        "name": "",
+        "func": "let fila = flow.get(\"fila\");\n\nmsg.payload = flow.get(\"datos[\" + fila + \"]\")\n\nflow.set(\"fila\", fila + 1)\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is deployed.\nflow.set(\"fila\", 0);",
+        "finalize": "",
+        "x": 360,
+        "y": 380,
+        "wires": [
+            [
+                "ff19209f.428a2"
+            ]
+        ]
+    },
+    {
+        "id": "ff19209f.428a2",
+        "type": "debug",
+        "z": "ef1775f9.a8d7f8",
+        "name": "Fila cada 3 segundos",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1020,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "799952ca.719f3c",
+        "type": "inject",
+        "z": "dd8677e1.8dcde8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "0",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 210,
+        "y": 140,
+        "wires": [
+            [
+                "d0aa0bc3.0822d8"
+            ]
+        ]
+    },
+    {
+        "id": "d0aa0bc3.0822d8",
+        "type": "file in",
+        "z": "dd8677e1.8dcde8",
+        "name": "",
+        "filename": "C:/Users/AngelFernandez/Desktop/prueba.csv",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "x": 540,
+        "y": 140,
+        "wires": [
+            [
+                "8d39f44.b852208"
+            ]
+        ]
+    },
+    {
+        "id": "8d39f44.b852208",
+        "type": "csv",
+        "z": "dd8677e1.8dcde8",
+        "name": "",
+        "sep": ";",
+        "hdrin": "",
+        "hdrout": "none",
+        "multi": "one",
+        "ret": "\\n",
+        "temp": "",
+        "skip": "0",
+        "strings": true,
+        "include_empty_strings": "",
+        "include_null_values": "",
+        "x": 830,
+        "y": 140,
+        "wires": [
+            [
+                "24bce6da.e2c43a"
+            ]
+        ]
+    },
+    {
+        "id": "88e41283.510df",
+        "type": "debug",
+        "z": "dd8677e1.8dcde8",
+        "name": "Archivo a datos locales",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1270,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "24bce6da.e2c43a",
+        "type": "delay",
+        "z": "dd8677e1.8dcde8",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "4",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "2",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 1060,
+        "y": 140,
+        "wires": [
+            [
+                "88e41283.510df"
+            ]
+        ]
+    }
+]
